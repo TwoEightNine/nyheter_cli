@@ -1,0 +1,87 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+def appCompat = "27.1.1"
+
+android {
+    compileSdkVersion 27
+    defaultConfig {
+        applicationId "global.msnthrp.nyheter"
+        minSdkVersion 23
+        targetSdkVersion 27
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            buildConfigField("String", "BUILD_TIME",  "\"${getDate()}\"")
+        }
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            buildConfigField("String", "BUILD_TIME",  "\"${getDate()}\"") //"\"${minutesSinceEpoch}\"")
+        }
+    }
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
+    lintOptions {
+        checkReleaseBuilds false
+    }
+    applicationVariants.all { variant ->
+        variant.outputs.all {
+            outputFileName = "nyheter-v${variant.versionName}.apk"
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
+
+    implementation "com.android.support:appcompat-v7:$appCompat"
+    implementation "com.android.support:design:$appCompat"
+    implementation "com.android.support:recyclerview-v7:$appCompat"
+    implementation "com.android.support:customtabs:$appCompat"
+
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlinVersion"
+
+    implementation "com.google.code.gson:gson:$gsonVersion"
+
+    implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion"
+
+    implementation "io.reactivex.rxjava2:rxjava:$rxJavaVersion"
+    implementation "io.reactivex.rxjava2:rxandroid:$rxAndroidVersion"
+
+    implementation "com.squareup.okhttp3:okhttp:$okhttpVersion"
+    implementation "com.squareup.okhttp3:logging-interceptor:$okhttpVersion"
+
+    kapt "com.google.dagger:dagger-compiler:$daggerVersion"
+    implementation "com.google.dagger:dagger:$daggerVersion"
+    compileOnly "javax.annotation:jsr250-api:$jsrVersion"
+
+    implementation "com.squareup.picasso:picasso:$picassoVersion"
+    implementation "de.hdodenhof:circleimageview:$circleImageViewVersion"
+    implementation "com.github.orangegangsters:swipy:$swipyVersion"
+    implementation "com.miguelcatalan:materialsearchview:$materialSearchViewVersion"
+    testImplementation "junit:junit:$junitVersion"
+}
+
+kapt {
+    generateStubs = true
+}
+
+repositories {
+    mavenCentral()
+}
+
+static def getDate() {
+    new Date().format('yyyy/MM/dd')
+}

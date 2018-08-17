@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="login_name_size">28sp</dimen>
+    <dimen name="login_input_width">260dp</dimen>
+
+    <dimen name="button_radius">5dp</dimen>
+
+    <dimen name="chat_bottom_height">400dp</dimen>
+    <dimen name="chat_attachment_width">170dp</dimen>
+    <dimen name="chat_attachment_height">200dp</dimen>
+    <dimen name="chat_attachment_circle">44dp</dimen>
+    <dimen name="chat_attachment_circle_margin">6dp</dimen>
+    <dimen name="chat_attachment_sticker_width">180dp</dimen>
+
+</resources>
